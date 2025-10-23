@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { models } from "mongoose";
 
 interface IUser {
   name: string;
@@ -12,8 +12,6 @@ const userSchema = new mongoose.Schema<IUser>({
   age: { type: Number, required: true },
 });
 
-const User =
-  (mongoose.models.Userdata as mongoose.Model<IUser>) ||
-  mongoose.model<IUser>("Userdata", userSchema);
+const User = models.User || mongoose.model<IUser>("User", userSchema);
 
 export default User;

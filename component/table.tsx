@@ -1,5 +1,5 @@
 "use client";
-import { instance } from "@/lib/axios";
+import axios from "axios";
 import { set } from "mongoose";
 import { useEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ function Table() {
 
     const fetchusers = async () => {
         try {
-            const response: Res = await instance.get("/users/");
+            const response: Res = await axios.get("/api/users/");
             console.log(response.data);
             setUsers(response.data.data);
         } catch (err) {
@@ -49,7 +49,7 @@ function Table() {
         if (!form._id) return;
 
         try {
-            await instance.put(`/users/${form._id}`, form);
+            await axios.put(`/api/users/${form._id}`, form);
             setForm({ name: "", email: "", age: "" });
             fetchusers();
             showuseredit(false);
@@ -63,7 +63,7 @@ function Table() {
     };
     const deleteuser = async (id: string) => {
         try {
-            await instance.delete(`/users/${id}`);
+            await axios.delete(`/api/users/${id}`);
             setUsers(users.filter((user) => user._id !== id));
         } catch (err) {
             console.log("error occured while deleting users", err);
@@ -72,7 +72,7 @@ function Table() {
     const handleAddUser = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await instance.post("/users/", form);
+            await axios.post("/api/users/", form);
             setForm({ name: "", email: "", age: "" });
             fetchusers();
             showuseredit(false);
@@ -126,7 +126,7 @@ function Table() {
                     </button>
                     <button
                         type="button"
-                        onClick={() => {showuseredit(false); setForm({ name: "", email: "", age: "" });}}
+                        onClick={() => { showuseredit(false); setForm({ name: "", email: "", age: "" }); }}
                         className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
                     >
                         Cancel

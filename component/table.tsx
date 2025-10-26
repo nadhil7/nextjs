@@ -10,12 +10,12 @@ function Table() {
         success: boolean;
     }
 
-    // interface User {
-    //     _id?: string;
-    //     name: string;
-    //     email: string;
-    //     age: string;
-    // }
+    interface User {
+        _id?: string;
+        name: string;
+        email: string;
+        age: string;
+    }
 
     const [users, setUsers] = useState<User[]>([]);
     const [useredit, showuseredit] = useState(false);
